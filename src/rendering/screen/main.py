@@ -5,7 +5,6 @@ from ..core import XMain
 class MainScreen(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
-        self.name = "MainScreen"
         self.load_assets(
             {
                 "logo": "assets/Logo.png",
@@ -23,6 +22,8 @@ class MainScreen(Screen):
             self.xmain.mlx.mlx_loop_exit(self.xmain.mlx_ptr)
         elif key == 104:
             return "highscore"
+        elif key == 105:
+            print("See the instruction")
         else:
             print(key)
 

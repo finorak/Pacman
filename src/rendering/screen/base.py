@@ -5,8 +5,6 @@ from ..core import ImgData, XMain
 
 class Screen(ABC):
     def __init__(self, xmain: XMain) -> None:
-        self.name: str = ""
-
         self.xmain: XMain = xmain
 
         self.assets: dict[str, ImgData] = {}
