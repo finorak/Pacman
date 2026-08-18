@@ -16,11 +16,13 @@ class MainScreen(Screen):
             }
         )
 
-    def get_input(self, key: int, _) -> None:
+    def get_input(self, key: int, _) -> None | str:
         if key == 65293:
-            print("Game Entered")
+            print("Run the game")
         elif key == 113:
             self.xmain.mlx.mlx_loop_exit(self.xmain.mlx_ptr)
+        elif key == 104:
+            return "highscore"
         else:
             print(key)
 
