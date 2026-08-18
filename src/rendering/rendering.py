@@ -1,9 +1,12 @@
 from typing import Any
-from mlx import Mlx
+
+from .screen import MainScreen
+from .core import XMain
 
 
 class Rendering:
     """Class that contains the main rendering part of the program."""
+
     def __init__(self, win_size: tuple[int, int]) -> None:
         """
         Everything starts here.
@@ -11,12 +14,9 @@ class Rendering:
         Args:
             win_size (tuple[int, int]): The size of the window.
         """
-        self._mlx = Mlx()
-
-        self._mlx_ptr = self._mlx.mlx_init()
-        self._mlx_window = self._mlx.mlx_new_window(
-            self._mlx_ptr, *win_size, "Pac-Man"
-        )
+        self.xmain = XMain(win_size, "Pac-Man")
+        self.main_menu = MainScreen(self.xmain)
+        self.xmain.mlx.mlx_mouse_hide(self.xmain.mlx_ptr)
 
     def main_loop(self, _param: Any) -> None:
         """
@@ -31,9 +31,10 @@ class Rendering:
 
     def run(self) -> None:
         """Run the program."""
-        self._mlx.mlx_loop_hook(self._mlx_ptr, self.main_loop, None)
-        self._mlx.mlx_key_hook(self._mlx_window, self.get_input, None)
-        self._mlx.mlx_loop(self._mlx_ptr)
+        self.xmain.mlx.mlx_loop_hook(self.xmain.mlx_ptr, self.main_loop, None)
+        self.xmain.mlx.mlx_key_hook(self.xmain.mlx_window, self.get_input, None)
+        self.xmain.mlx.mlx_hook(self.xmain.mlx_window, 33, 0, self._exit, None)
+        self.xmain.mlx.mlx_loop(self.xmain.mlx_ptr)
 
     def get_input(self, keycode: int, _param: Any) -> None:
         """
@@ -43,15 +44,20 @@ class Rendering:
             keycode (int): The keycode pressed by the user.
             _param (Any): Parameter needed by the mlx.
         """
-        # To exit the program with 'q' or 'Alt+F4'
         if keycode == 65307 or keycode == 65513:
-            self._mlx.mlx_loop_exit(self._mlx_ptr)
+            self.xmain.mlx.mlx_loop_exit(self.xmain.mlx_ptr)
+        self.main_menu.get_input(keycode, _param)
 
     def render(self) -> None:
         """Render the program in the window."""
+        self.main_menu.render()
 
     def update(self) -> None:
         """Update the logic in the program."""
+        self.main_menu.update(0.016)
+
+    def _exit(self, _) -> None:
+        self.xmain.mlx.mlx_loop_exit(self.xmain.mlx_ptr)
 
 
 if __name__ == "__main__":
