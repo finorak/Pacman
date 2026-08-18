@@ -4,13 +4,13 @@ import math
 import random
 
 
-class HighScore(Screen):
+class Instructions(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
         self.load_assets(
             {
                 "back": "assets/Back2.png",
-                "logo": "assets/HighScore.png",
+                "logo": "assets/Instructions.png",
                 "backtomain": "assets/button/backtomain.png",
             }
         )
@@ -61,7 +61,7 @@ class HighScore(Screen):
         x = self.assets["back"].pos_x
 
         while x < self.xmain.screen_w:
-            self.xmain.mlx.mlx_put_image_to_window(
+            _ = self.xmain.mlx.mlx_put_image_to_window(
                 self.xmain.mlx_ptr,
                 self.xmain.mlx_window,
                 self.assets["back"].img,

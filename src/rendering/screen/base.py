@@ -12,18 +12,24 @@ class Screen(ABC):
         self.time = 0.0
 
     @abstractmethod
-    def render(self) -> None: ...
+    def get_input(self, key: int, _) -> str | None: ...
 
     @abstractmethod
     def update(self, dt: float) -> None: ...
 
     @abstractmethod
-    def get_input(self, key: int, _) -> str | None: ...
+    def render(self) -> None: ...
+
+    def exit(self) -> None:
+        for image in self.assets.values():
+            self.xmain.mlx.mlx_destroy_image(self.xmain.mlx_ptr, image.img)
 
     def load_assets(self, files: dict[str, str]) -> None:
         for name, path in files.items():
             image = ImgData()
-            tmp = self.xmain.mlx.mlx_png_file_to_image(self.xmain.mlx_ptr, path)
+            tmp = self.xmain.mlx.mlx_png_file_to_image(
+                self.xmain.mlx_ptr, path
+            )
             if not tmp:
                 raise Exception(f"Cannot load image {image} in path: {path}")
             image.img = tmp[0] if tmp[0] else 0

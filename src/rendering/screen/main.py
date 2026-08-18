@@ -4,7 +4,7 @@ import math
 import random
 
 
-class MainScreen(Screen):
+class Main(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
         self.load_assets(
@@ -19,7 +19,7 @@ class MainScreen(Screen):
         )
         self.set_position(
             {
-                "back": (0, random.randint(-500, 0)),
+                "back": (0, random.randint(-400, 0)),
                 "logo": (
                     self.get_center(self.assets["logo"].width),
                     50,
@@ -51,7 +51,7 @@ class MainScreen(Screen):
         elif key == 104:
             return "highscore"
         elif key == 105:
-            print("See the instruction")
+            return "instructions"
         else:
             print(key)
 
@@ -65,7 +65,15 @@ class MainScreen(Screen):
         )
         self.assets["back"].pos_x -= dt * 30
 
-    def render_instruction(self):
+    def render(self) -> None:
+        self.xmain.mlx.mlx_clear_window(
+            self.xmain.mlx_ptr,
+            self.xmain.mlx_window,
+        )
+        self._render_background()
+        self._render_instruction()
+
+    def _render_instruction(self) -> None:
         for name, image in self.assets.items():
             if name == "back":
                 continue
@@ -77,15 +85,7 @@ class MainScreen(Screen):
                 int(image.pos_y),
             )
 
-    def render(self) -> None:
-        self.xmain.mlx.mlx_clear_window(
-            self.xmain.mlx_ptr,
-            self.xmain.mlx_window,
-        )
-        self.render_background()
-        self.render_instruction()
-
-    def render_background(self) -> None:
+    def _render_background(self) -> None:
         image_width = self.assets["back"].width
 
         x = self.assets["back"].pos_x

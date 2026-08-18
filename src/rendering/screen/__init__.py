@@ -1,5 +1,6 @@
-from .main import MainScreen
+from .main import Main
 from .highscore import HighScore
 from .base import Screen
+from .instructions import Instructions
 
-__all__ = ["MainScreen", "HighScore", "Screen"]
+__all__ = ["Main", "HighScore", "Screen", "Instructions"]
