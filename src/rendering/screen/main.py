@@ -19,7 +19,7 @@ class MainScreen(Screen):
         )
         self.set_position(
             {
-                "back": (0, random.randint(-300, 0)),
+                "back": (0, random.randint(-500, 0)),
                 "logo": (
                     self.get_center(self.assets["logo"].width),
                     50,
@@ -66,12 +66,9 @@ class MainScreen(Screen):
         self.assets["back"].pos_x -= dt * 30
 
     def render_instruction(self):
-        self.xmain.mlx.mlx_clear_window(
-            self.xmain.mlx_ptr,
-            self.xmain.mlx_window,
-        )
-
-        for _, image in self.assets.items():
+        for name, image in self.assets.items():
+            if name == "back":
+                continue
             self.xmain.mlx.mlx_put_image_to_window(
                 self.xmain.mlx_ptr,
                 self.xmain.mlx_window,
@@ -81,4 +78,24 @@ class MainScreen(Screen):
             )
 
     def render(self) -> None:
+        self.xmain.mlx.mlx_clear_window(
+            self.xmain.mlx_ptr,
+            self.xmain.mlx_window,
+        )
+        self.render_background()
         self.render_instruction()
+
+    def render_background(self) -> None:
+        image_width = self.assets["back"].width
+
+        x = self.assets["back"].pos_x
+
+        while x < self.xmain.screen_w:
+            self.xmain.mlx.mlx_put_image_to_window(
+                self.xmain.mlx_ptr,
+                self.xmain.mlx_window,
+                self.assets["back"].img,
+                int(x),
+                int(self.assets["back"].pos_y),
+            )
+            x += image_width

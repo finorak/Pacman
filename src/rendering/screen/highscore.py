@@ -9,14 +9,14 @@ class HighScore(Screen):
         super().__init__(xmain)
         self.load_assets(
             {
-                "back2": "assets/Back2.png",
+                "back": "assets/Back2.png",
                 "logo": "assets/HighScore.png",
                 "backtomain": "assets/button/backtomain.png",
             }
         )
         self.set_position(
             {
-                "back2": (0, random.randint(-300, 0)),
+                "back": (0, random.randint(-500, 0)),
                 "logo": (
                     self.get_center(self.assets["logo"].width),
                     50,
@@ -29,9 +29,14 @@ class HighScore(Screen):
         )
 
     def render(self) -> None:
-        self.xmain.mlx.mlx_clear_window(self.xmain.mlx_ptr, self.xmain.mlx_window)
-
-        for _, image in self.assets.items():
+        self.xmain.mlx.mlx_clear_window(
+            self.xmain.mlx_ptr,
+            self.xmain.mlx_window,
+        )
+        self.render_background()
+        for name, image in self.assets.items():
+            if name == "back":
+                continue
             self.xmain.mlx.mlx_put_image_to_window(
                 self.xmain.mlx_ptr,
                 self.xmain.mlx_window,
@@ -43,9 +48,24 @@ class HighScore(Screen):
     def update(self, dt: float) -> None:
         self.time += dt
         self.assets["logo"].pos_y = 50 + math.sin(self.time) * 15
-        self.assets["back2"].pos_x -= dt * 30
+        self.assets["back"].pos_x -= dt * 30
 
     def get_input(self, key: int, _) -> str | None:
         if key == 113:
             return "main"
         print(key)
+
+    def render_background(self) -> None:
+        image_width = self.assets["back"].width
+
+        x = self.assets["back"].pos_x
+
+        while x < self.xmain.screen_w:
+            self.xmain.mlx.mlx_put_image_to_window(
+                self.xmain.mlx_ptr,
+                self.xmain.mlx_window,
+                self.assets["back"].img,
+                int(x),
+                int(self.assets["back"].pos_y),
+            )
+            x += image_width
