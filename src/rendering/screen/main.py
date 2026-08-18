@@ -1,6 +1,7 @@
 from .base import Screen
 from ..core import XMain
 import math
+import random
 
 
 class MainScreen(Screen):
@@ -8,6 +9,7 @@ class MainScreen(Screen):
         super().__init__(xmain)
         self.load_assets(
             {
+                "back": "assets/Back.png",
                 "logo": "assets/Logo.png",
                 "start": "assets/button/start.png",
                 "instructions": "assets/button/instruction.png",
@@ -17,6 +19,7 @@ class MainScreen(Screen):
         )
         self.set_position(
             {
+                "back": (0, random.randint(-300, 0)),
                 "logo": (
                     self.get_center(self.assets["logo"].width),
                     50,
@@ -54,15 +57,20 @@ class MainScreen(Screen):
 
     def update(self, dt: float) -> None:
         self.time += dt
-        self.assets["logo"].pos_y = 50 + math.sin(self.time * 2) * 15
+        self.assets["logo"].pos_y = 50 + math.sin(self.time * 2) * 10
         self.assets["logo"].pos_x = (
             self.get_center(self.assets["logo"].width)
             - 10
-            - math.sin(60 + self.time * 2) * 20
+            + math.cos(10 + self.time * 2) * 10
         )
+        self.assets["back"].pos_x -= dt * 30
 
     def render_instruction(self):
-        self.xmain.mlx.mlx_clear_window(self.xmain.mlx_ptr, self.xmain.mlx_window)
+        self.xmain.mlx.mlx_clear_window(
+            self.xmain.mlx_ptr,
+            self.xmain.mlx_window,
+        )
+
         for _, image in self.assets.items():
             self.xmain.mlx.mlx_put_image_to_window(
                 self.xmain.mlx_ptr,
