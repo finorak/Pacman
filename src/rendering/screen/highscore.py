@@ -1,5 +1,6 @@
 from .base import Screen
 from ..core import XMain
+import math
 
 
 class HighScore(Screen):
@@ -11,6 +12,18 @@ class HighScore(Screen):
                 "backtomain": "assets/button/backtomain.png",
             }
         )
+        self.set_position(
+            {
+                "logo": (
+                    self.get_center(self.assets["logo"].width),
+                    50,
+                ),
+                "backtomain": (
+                    self.get_center(self.assets["backtomain"].width),
+                    550,
+                ),
+            }
+        )
 
     def render(self) -> None:
         self.xmain.mlx.mlx_clear_window(self.xmain.mlx_ptr, self.xmain.mlx_window)
@@ -19,19 +32,21 @@ class HighScore(Screen):
             self.xmain.mlx_ptr,
             self.xmain.mlx_window,
             self.assets["logo"].img,
-            800 // 2 - self.assets["logo"].width // 2,
-            50,
+            int(self.assets["logo"].pos_x),
+            int(self.assets["logo"].pos_y),
         )
 
         self.xmain.mlx.mlx_put_image_to_window(
             self.xmain.mlx_ptr,
             self.xmain.mlx_window,
-            self.assets["backtomain"].img,
-            800 // 2 - self.assets["backtomain"].width // 2,
-            550,
+            int(self.assets["backtomain"].img),
+            int(self.assets["backtomain"].pos_x),
+            int(self.assets["backtomain"].pos_y),
         )
 
-    def update(self, dt: float) -> None: ...
+    def update(self, dt: float) -> None:
+        self.time += dt
+        self.assets["logo"].pos_y = 50 + math.sin(self.time) * 15
 
     def get_input(self, key: int, _) -> str | None:
         if key == 113:

@@ -10,6 +10,8 @@ class ImgData:
         self.sl = 0
         self.bpp = 0
         self.iformat = 0
+        self.pos_x: float = 0
+        self.pos_y: float = 0
 
 
 class XMain:

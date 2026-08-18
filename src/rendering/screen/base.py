@@ -9,6 +9,8 @@ class Screen(ABC):
 
         self.assets: dict[str, ImgData] = {}
 
+        self.time = 0.0
+
     @abstractmethod
     def render(self) -> None: ...
 
@@ -32,3 +34,13 @@ class Screen(ABC):
                 self.xmain.mlx.mlx_get_data_addr(image.img)
             )
             self.assets[name] = image
+
+    def set_position(self, positions: dict[str, tuple[int, int]]) -> None:
+        for name, (x, y) in positions.items():
+            self.assets[name].pos_x = x
+            self.assets[name].pos_y = y
+
+    def get_center(self, lengh: int, width: bool = True) -> int:
+        if width:
+            return self.xmain.screen_w // 2 - lengh // 2
+        return self.xmain.screen_h // 2 - lengh // 2

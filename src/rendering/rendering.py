@@ -1,4 +1,5 @@
 from typing import Any
+import time
 
 
 from .screen import MainScreen, HighScore, Screen
@@ -22,6 +23,8 @@ class Rendering:
         }
         self.current_screen = self.states["main"]
         self.xmain.mlx.mlx_mouse_hide(self.xmain.mlx_ptr)
+
+        self.previous_time = time.perf_counter()
 
     def main_loop(self, _param: Any) -> None:
         """
@@ -59,7 +62,10 @@ class Rendering:
 
     def update(self) -> None:
         """Update the logic in the program."""
-        self.current_screen.update(0.016)
+        current_time = time.perf_counter()
+        dt = current_time - self.previous_time
+        self.previous_time = current_time
+        self.current_screen.update(dt)
 
     def _exit(self, _) -> None:
         self.xmain.mlx.mlx_loop_exit(self.xmain.mlx_ptr)

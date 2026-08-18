@@ -1,5 +1,6 @@
 from .base import Screen
 from ..core import XMain
+import math
 
 
 class MainScreen(Screen):
@@ -12,6 +13,30 @@ class MainScreen(Screen):
                 "instructions": "assets/button/instruction.png",
                 "highscore": "assets/button/highscore.png",
                 "exit": "assets/button/exit.png",
+            }
+        )
+        self.set_position(
+            {
+                "logo": (
+                    self.get_center(self.assets["logo"].width),
+                    50,
+                ),
+                "start": (
+                    self.get_center(self.assets["start"].width),
+                    250,
+                ),
+                "instructions": (
+                    self.get_center(self.assets["instructions"].width),
+                    300,
+                ),
+                "highscore": (
+                    self.get_center(self.assets["highscore"].width),
+                    350,
+                ),
+                "exit": (
+                    self.get_center(self.assets["exit"].width),
+                    400,
+                ),
             }
         )
 
@@ -27,45 +52,25 @@ class MainScreen(Screen):
         else:
             print(key)
 
-    def update(self, dt: float) -> None: ...
+    def update(self, dt: float) -> None:
+        self.time += dt
+        self.assets["logo"].pos_y = 50 + math.sin(self.time * 2) * 15
+        self.assets["logo"].pos_x = (
+            self.get_center(self.assets["logo"].width)
+            - 10
+            - math.sin(60 + self.time * 2) * 20
+        )
 
     def render_instruction(self):
         self.xmain.mlx.mlx_clear_window(self.xmain.mlx_ptr, self.xmain.mlx_window)
-        self.xmain.mlx.mlx_put_image_to_window(
-            self.xmain.mlx_ptr,
-            self.xmain.mlx_window,
-            self.assets["logo"].img,
-            800 // 2 - self.assets["logo"].width // 2,
-            50,
-        )
-        self.xmain.mlx.mlx_put_image_to_window(
-            self.xmain.mlx_ptr,
-            self.xmain.mlx_window,
-            self.assets["start"].img,
-            800 // 2 - self.assets["start"].width // 2,
-            250,
-        )
-        self.xmain.mlx.mlx_put_image_to_window(
-            self.xmain.mlx_ptr,
-            self.xmain.mlx_window,
-            self.assets["highscore"].img,
-            800 // 2 - self.assets["highscore"].width // 2,
-            300,
-        )
-        self.xmain.mlx.mlx_put_image_to_window(
-            self.xmain.mlx_ptr,
-            self.xmain.mlx_window,
-            self.assets["instructions"].img,
-            800 // 2 - self.assets["instructions"].width // 2,
-            350,
-        )
-        self.xmain.mlx.mlx_put_image_to_window(
-            self.xmain.mlx_ptr,
-            self.xmain.mlx_window,
-            self.assets["exit"].img,
-            800 // 2 - self.assets["exit"].width // 2,
-            400,
-        )
+        for _, image in self.assets.items():
+            self.xmain.mlx.mlx_put_image_to_window(
+                self.xmain.mlx_ptr,
+                self.xmain.mlx_window,
+                image.img,
+                int(image.pos_x),
+                int(image.pos_y),
+            )
 
     def render(self) -> None:
         self.render_instruction()
