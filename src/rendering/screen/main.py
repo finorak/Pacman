@@ -65,7 +65,15 @@ class Main(Screen):
         )
         self.assets["back"].pos_x -= dt * 30
 
-    def render_instruction(self):
+    def render(self) -> None:
+        self.xmain.mlx.mlx_clear_window(
+            self.xmain.mlx_ptr,
+            self.xmain.mlx_window,
+        )
+        self._render_background()
+        self._render_instruction()
+
+    def _render_instruction(self) -> None:
         for name, image in self.assets.items():
             if name == "back":
                 continue
@@ -77,15 +85,7 @@ class Main(Screen):
                 int(image.pos_y),
             )
 
-    def render(self) -> None:
-        self.xmain.mlx.mlx_clear_window(
-            self.xmain.mlx_ptr,
-            self.xmain.mlx_window,
-        )
-        self.render_background()
-        self.render_instruction()
-
-    def render_background(self) -> None:
+    def _render_background(self) -> None:
         image_width = self.assets["back"].width
 
         x = self.assets["back"].pos_x

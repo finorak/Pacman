@@ -12,13 +12,17 @@ class Screen(ABC):
         self.time = 0.0
 
     @abstractmethod
-    def render(self) -> None: ...
+    def get_input(self, key: int, _) -> str | None: ...
 
     @abstractmethod
     def update(self, dt: float) -> None: ...
 
     @abstractmethod
-    def get_input(self, key: int, _) -> str | None: ...
+    def render(self) -> None: ...
+
+    def exit(self) -> None:
+        for image in self.assets.values():
+            self.xmain.mlx.mlx_destroy_image(self.xmain.mlx_ptr, image.img)
 
     def load_assets(self, files: dict[str, str]) -> None:
         for name, path in files.items():

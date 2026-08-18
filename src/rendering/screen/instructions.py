@@ -9,7 +9,7 @@ class Instructions(Screen):
         super().__init__(xmain)
         self.load_assets(
             {
-                "back": "assets/Back.png",
+                "back": "assets/Back2.png",
                 "logo": "assets/Instructions.png",
                 "backtomain": "assets/button/backtomain.png",
             }
@@ -28,12 +28,22 @@ class Instructions(Screen):
             }
         )
 
+    def get_input(self, key: int, _) -> str | None:
+        if key == 113:
+            return "main"
+        print(key)
+
+    def update(self, dt: float) -> None:
+        self.time += dt
+        self.assets["logo"].pos_y = 50 + math.sin(self.time) * 15
+        self.assets["back"].pos_x -= dt * 30
+
     def render(self) -> None:
         self.xmain.mlx.mlx_clear_window(
             self.xmain.mlx_ptr,
             self.xmain.mlx_window,
         )
-        self.render_background()
+        self._render_background()
         for name, image in self.assets.items():
             if name == "back":
                 continue
@@ -45,23 +55,13 @@ class Instructions(Screen):
                 int(image.pos_y),
             )
 
-    def update(self, dt: float) -> None:
-        self.time += dt
-        self.assets["logo"].pos_y = 50 + math.sin(self.time) * 15
-        self.assets["back"].pos_x -= dt * 30
-
-    def get_input(self, key: int, _) -> str | None:
-        if key == 113:
-            return "main"
-        print(key)
-
-    def render_background(self) -> None:
+    def _render_background(self) -> None:
         image_width = self.assets["back"].width
 
         x = self.assets["back"].pos_x
 
         while x < self.xmain.screen_w:
-            self.xmain.mlx.mlx_put_image_to_window(
+            _ = self.xmain.mlx.mlx_put_image_to_window(
                 self.xmain.mlx_ptr,
                 self.xmain.mlx_window,
                 self.assets["back"].img,

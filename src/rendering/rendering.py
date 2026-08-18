@@ -75,6 +75,9 @@ class Rendering:
         self.current_screen.update(dt)
 
     def _exit(self, _) -> None:
+        for _, screen in self.states.items():
+            screen.exit()
+        self.xmain.mlx.mlx_release(self.xmain.mlx_ptr)
         self.xmain.mlx.mlx_loop_exit(self.xmain.mlx_ptr)
 
 
