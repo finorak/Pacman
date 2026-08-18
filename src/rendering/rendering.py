@@ -2,7 +2,7 @@ from typing import Any
 import time
 
 
-from .screen import MainScreen, HighScore, Screen
+from .screen import Main, HighScore, Screen, Instructions
 from .core import XMain
 
 
@@ -18,8 +18,9 @@ class Rendering:
         """
         self.xmain = XMain(win_size, "Pac-Man")
         self.states: dict[str, Screen] = {
-            "main": MainScreen(self.xmain),
+            "main": Main(self.xmain),
             "highscore": HighScore(self.xmain),
+            "instructions": Instructions(self.xmain),
         }
         self.current_screen = self.states["main"]
         self.xmain.mlx.mlx_mouse_hide(self.xmain.mlx_ptr)
@@ -39,9 +40,15 @@ class Rendering:
 
     def run(self) -> None:
         """Run the program."""
-        _ = self.xmain.mlx.mlx_loop_hook(self.xmain.mlx_ptr, self.main_loop, None)
-        _ = self.xmain.mlx.mlx_key_hook(self.xmain.mlx_window, self.get_input, None)
-        _ = self.xmain.mlx.mlx_hook(self.xmain.mlx_window, 33, 0, self._exit, None)
+        _ = self.xmain.mlx.mlx_loop_hook(
+            self.xmain.mlx_ptr, self.main_loop, None
+        )
+        _ = self.xmain.mlx.mlx_key_hook(
+            self.xmain.mlx_window, self.get_input, None
+        )
+        _ = self.xmain.mlx.mlx_hook(
+            self.xmain.mlx_window, 33, 0, self._exit, None
+        )
         _ = self.xmain.mlx.mlx_loop(self.xmain.mlx_ptr)
 
     def get_input(self, keycode: int, _param: Any) -> None:

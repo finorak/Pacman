@@ -23,7 +23,9 @@ class Screen(ABC):
     def load_assets(self, files: dict[str, str]) -> None:
         for name, path in files.items():
             image = ImgData()
-            tmp = self.xmain.mlx.mlx_png_file_to_image(self.xmain.mlx_ptr, path)
+            tmp = self.xmain.mlx.mlx_png_file_to_image(
+                self.xmain.mlx_ptr, path
+            )
             if not tmp:
                 raise Exception(f"Cannot load image {image} in path: {path}")
             image.img = tmp[0] if tmp[0] else 0

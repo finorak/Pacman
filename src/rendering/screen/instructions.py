@@ -4,13 +4,13 @@ import math
 import random
 
 
-class HighScore(Screen):
+class Instructions(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
         self.load_assets(
             {
-                "back": "assets/Back2.png",
-                "logo": "assets/HighScore.png",
+                "back": "assets/Back.png",
+                "logo": "assets/Instructions.png",
                 "backtomain": "assets/button/backtomain.png",
             }
         )

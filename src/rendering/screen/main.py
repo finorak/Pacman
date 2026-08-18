@@ -4,7 +4,7 @@ import math
 import random
 
 
-class MainScreen(Screen):
+class Main(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
         self.load_assets(
@@ -19,7 +19,7 @@ class MainScreen(Screen):
         )
         self.set_position(
             {
-                "back": (0, random.randint(-500, 0)),
+                "back": (0, random.randint(-400, 0)),
                 "logo": (
                     self.get_center(self.assets["logo"].width),
                     50,
@@ -51,7 +51,7 @@ class MainScreen(Screen):
         elif key == 104:
             return "highscore"
         elif key == 105:
-            print("See the instruction")
+            return "instructions"
         else:
             print(key)
 
