@@ -6,7 +6,7 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:48:50 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 10:48:50 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/19 13:38:06 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
@@ -20,12 +20,14 @@ from .base import Screen
 class HighScore(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
-        self.load_assets(
-            {
-                "back": "assets/Back2.png",
-                "logo": "assets/HighScore.png",
-                "backtomain": "assets/button/backtomain.png",
-            }
+        self.assets.update(
+            self.load_assets(
+                {
+                    "back": "assets/Back2.png",
+                    "logo": "assets/HighScore.png",
+                    "backtomain": "assets/button/backtomain.png",
+                }
+            )
         )
         self.set_position(
             {

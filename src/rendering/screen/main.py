@@ -6,7 +6,7 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:49:01 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 12:42:20 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/19 13:39:23 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
@@ -20,15 +20,17 @@ from .base import Screen
 class Main(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
-        self.load_assets(
-            {
-                "back": "assets/Back.png",
-                "logo": "assets/Logo.png",
-                "start": "assets/button/start.png",
-                "instructions": "assets/button/instruction.png",
-                "highscore": "assets/button/highscore.png",
-                "exit": "assets/button/exit.png",
-            }
+        self.assets.update(
+            self.load_assets(
+                {
+                    "back": "assets/Back.png",
+                    "logo": "assets/Logo.png",
+                    "start": "assets/button/start.png",
+                    "instructions": "assets/button/instruction.png",
+                    "highscore": "assets/button/highscore.png",
+                    "exit": "assets/button/exit.png",
+                }
+            )
         )
         self.set_position(
             {
@@ -58,7 +60,7 @@ class Main(Screen):
 
     def get_input(self, key: int, _) -> None | str:
         if key == 65293:
-            print("Run the game")
+            return "game"
         elif key == 113:
             self.xmain.mlx.mlx_loop_exit(self.xmain.mlx_ptr)
         elif key == 104:

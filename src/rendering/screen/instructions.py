@@ -6,7 +6,7 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:48:54 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 10:48:54 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/19 13:38:20 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
@@ -20,12 +20,14 @@ from .base import Screen
 class Instructions(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
-        self.load_assets(
-            {
-                "back": "assets/Back2.png",
-                "logo": "assets/Instructions.png",
-                "backtomain": "assets/button/backtomain.png",
-            }
+        self.assets.update(
+            self.load_assets(
+                {
+                    "back": "assets/Back2.png",
+                    "logo": "assets/Instructions.png",
+                    "backtomain": "assets/button/backtomain.png",
+                }
+            )
         )
         self.set_position(
             {
