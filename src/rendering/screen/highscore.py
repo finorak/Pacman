@@ -1,7 +1,20 @@
-from .base import Screen
-from ..core import XMain
+# *************************************************************************** #
+#                                                                             #
+#                                                        :::      ::::::::    #
+#    highscore.py                                      :+:      :+:    :+:    #
+#                                                    +:+ +:+         +:+      #
+#    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
+#                                                +#+#+#+#+#+   +#+            #
+#    Created: 2026/08/19 10:48:50 by nyramana         #+#    #+#              #
+#    Updated: 2026/08/19 10:48:50 by nyramana        ###   ########.fr        #
+#                                                                             #
+# *************************************************************************** #
+
 import math
 import random
+
+from ..core import XMain
+from .base import Screen
 
 
 class HighScore(Screen):

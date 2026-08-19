@@ -1,11 +1,21 @@
-from typing import Any
+# *************************************************************************** #
+#                                                                             #
+#                                                        :::      ::::::::    #
+#    rendering.py                                      :+:      :+:    :+:    #
+#                                                    +:+ +:+         +:+      #
+#    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
+#                                                +#+#+#+#+#+   +#+            #
+#    Created: 2026/08/19 10:49:09 by nyramana         #+#    #+#              #
+#    Updated: 2026/08/19 11:44:16 by nyramana        ###   ########.fr        #
+#                                                                             #
+# *************************************************************************** #
+
 import time
+from typing import Any
 
 from ..settings import HEIGHT, WITDTH
-
-
-from .screen import Main, HighScore, Screen, Instructions
 from .core import XMain
+from .screen import HighScore, Instructions, Main, Screen
 
 
 class Rendering:
@@ -25,7 +35,6 @@ class Rendering:
             "instructions": Instructions(self.xmain),
         }
         self.current_screen = self.states["main"]
-        self.xmain.mlx.mlx_mouse_hide(self.xmain.mlx_ptr)
 
         self.previous_time = time.perf_counter()
 
@@ -77,7 +86,7 @@ class Rendering:
         self.current_screen.update(dt)
 
     def _exit(self, _) -> None:
-        for _, screen in self.states.items():
+        for screen in self.states.values():
             screen.exit()
         self.xmain.mlx.mlx_release(self.xmain.mlx_ptr)
         self.xmain.mlx.mlx_loop_exit(self.xmain.mlx_ptr)

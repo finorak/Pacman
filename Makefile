@@ -7,7 +7,6 @@ VENV = .venv
 
 install:
 	$(UV) sync
-	$(UV) pip install ./wheel/mlx-2.4-py3-none-any.whl
 
 run:
 	$(UV) run $(NAME)

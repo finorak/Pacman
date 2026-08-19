@@ -1,7 +1,20 @@
-from .base import Screen
-from ..core import XMain
+# *************************************************************************** #
+#                                                                             #
+#                                                        :::      ::::::::    #
+#    main.py                                           :+:      :+:    :+:    #
+#                                                    +:+ +:+         +:+      #
+#    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
+#                                                +#+#+#+#+#+   +#+            #
+#    Created: 2026/08/19 10:49:01 by nyramana         #+#    #+#              #
+#    Updated: 2026/08/19 12:42:20 by nyramana        ###   ########.fr        #
+#                                                                             #
+# *************************************************************************** #
+
 import math
 import random
+
+from ..core import XMain
+from .base import Screen
 
 
 class Main(Screen):
