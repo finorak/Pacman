@@ -36,29 +36,31 @@ class Maze:
         real_pos = pos[0] * self.size + 5, pos[1] * self.size + 5
         i = 0
         while (value >> i) != 0:
-            if ((value >> i) & 1) == 1:
-                if i == 0:
-                    self.xmain.draw_line(
-                        self.image,
-                        real_pos,
-                        (real_pos[0] + self.size, real_pos[1]),
-                    )
-                elif i == 1:
-                    self.xmain.draw_line(
-                        self.image,
-                        (real_pos[0] + self.size, real_pos[1]),
-                        (real_pos[0] + self.size, real_pos[1] + self.size),
-                    )
-                elif i == 2:
-                    self.xmain.draw_line(
-                        self.image,
-                        (real_pos[0], real_pos[1] + self.size),
-                        (real_pos[0] + self.size, real_pos[1] + self.size),
-                    )
-                else:
-                    self.xmain.draw_line(
-                        self.image,
-                        (real_pos[0], real_pos[1]),
-                        (real_pos[0], real_pos[1] + self.size),
-                    )
+            if ((value >> i) & 1) != 1:
+                i += 1
+                continue
+            if i == 0:
+                self.xmain.draw_line(
+                    self.image,
+                    real_pos,
+                    (real_pos[0] + self.size, real_pos[1]),
+                )
+            elif i == 1:
+                self.xmain.draw_line(
+                    self.image,
+                    (real_pos[0] + self.size, real_pos[1]),
+                    (real_pos[0] + self.size, real_pos[1] + self.size),
+                )
+            elif i == 2:
+                self.xmain.draw_line(
+                    self.image,
+                    (real_pos[0], real_pos[1] + self.size),
+                    (real_pos[0] + self.size, real_pos[1] + self.size),
+                )
+            else:
+                self.xmain.draw_line(
+                    self.image,
+                    (real_pos[0], real_pos[1]),
+                (real_pos[0], real_pos[1] + self.size),
+                )
             i += 1

@@ -10,6 +10,7 @@
 #                                                                             #
 # *************************************************************************** #
 
+from typing import Any
 import numpy as np
 from mlx import Mlx
 
@@ -19,7 +20,7 @@ class ImgData:
         self.img = 0
         self.width = 0
         self.height = 0
-        self.data: np.ndarray
+        self.data: np.ndarray | Any
         self.sl = 0
         self.bpp = 0
         self.iformat = 0
