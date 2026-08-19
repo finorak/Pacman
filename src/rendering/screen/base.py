@@ -6,11 +6,13 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:48:43 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 13:37:12 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/19 16:19:54 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
 from abc import ABC, abstractmethod
+
+import numpy as np
 
 from ..core import ImgData, XMain
 
@@ -64,6 +66,8 @@ class Screen(ABC):
         image.data, image.bpp, image.sl, image.iformat = (
             self.xmain.mlx.mlx_get_data_addr(image.img)
         )
+
+        image.data = np.array(image.data)
         return image
 
     def get_center(self, lengh: int, width: bool = True) -> int:

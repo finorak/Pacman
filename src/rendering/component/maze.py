@@ -6,7 +6,7 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:25:15 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 14:37:46 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/19 15:56:59 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
@@ -24,7 +24,7 @@ class Maze:
         self.xmain = xmain
         self.maze = self.maze_gen.maze
         self.image = self.xmain.generate_image(
-            (len(self.maze) * self.size + 10, len(self.maze[0]) * self.size + 10)
+            (len(self.maze[0]) * self.size + 10, len(self.maze) * self.size + 10)
         )
         self.generate_maze_image()
         print(self.image.width, self.image.height)

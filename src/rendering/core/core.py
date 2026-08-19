@@ -6,10 +6,11 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 11:06:11 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 12:40:57 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/19 16:21:41 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
+import numpy as np
 from mlx import Mlx
 
 
@@ -18,7 +19,7 @@ class ImgData:
         self.img = 0
         self.width = 0
         self.height = 0
-        self.data: memoryview[int]
+        self.data: np.ndarray
         self.sl = 0
         self.bpp = 0
         self.iformat = 0
