@@ -10,6 +10,7 @@ dependencies = [
     "mlx",
     "mypy>=2.3.1",
     "pydantic>=2.13.4",
+    "numpy>=2.2.6",
 ]
 
 [tool.uv.sources]

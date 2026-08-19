@@ -6,11 +6,15 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:48:43 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 13:37:12 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/19 16:45:33 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
 from abc import ABC, abstractmethod
+from os import walk
+from os.path import join
+
+import numpy as np
 
 from ..core import ImgData, XMain
 
@@ -64,7 +68,16 @@ class Screen(ABC):
         image.data, image.bpp, image.sl, image.iformat = (
             self.xmain.mlx.mlx_get_data_addr(image.img)
         )
+
+        image.data = np.array(image.data)
         return image
+
+    def load_from_folder(self, *path: str) -> list[ImgData]:
+        result = []
+        for folder_path, _, file_names in walk(join(*path)):
+            for file_name in file_names:
+                result.append(self.load_asset(join(folder_path, file_name)))
+        return result
 
     def get_center(self, lengh: int, width: bool = True) -> int:
         if width:

@@ -13,7 +13,6 @@
 import time
 from typing import Any
 
-from ..settings import HEIGHT, WITDTH
 from .core import XMain
 from .screen import Game, HighScore, Instructions, Main, Screen
 
@@ -94,5 +93,5 @@ class Rendering:
 
 
 if __name__ == "__main__":
-    rendering = Rendering((WITDTH, HEIGHT))
+    rendering = Rendering((900, 800))
     rendering.run()
