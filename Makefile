@@ -5,16 +5,12 @@ NAME = main.py
 UV = uv
 VENV = .venv
 
-PYTHON = $(BIN_DIR)/python
-MYPY = $(BIN_DIR)/mypy
-FLAKE = $(BIN_DIR)/flake8
-
 install:
 	$(UV) sync
-	$(UV) pip install wheel/mlx-2.2-py3-none-any.whl
+	$(UV) pip install ./wheel/mlx-2.4-py3-none-any.whl
 
 run:
-	$(UV) run python $(NAME)
+	$(UV) run $(NAME)
 
 debug:
 	$(UV) run python -m pdb $(NAME)
@@ -25,6 +21,14 @@ clean:
 
 fclean: clean
 	rm -rf $(VENV)
+
+lint:
+	$(UV) run flake8 . --exclude=$(VENV)
+	$(UV) run mypy mypy . --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs --exclude=$(VENV)
+
+lint:
+	$(UV) run flake8 . --exclude=$(VENV)
+	$(UV) run mypy --strict . --exclude=$(VENV)
 
 re: fclean install
 
