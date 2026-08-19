@@ -1,11 +1,11 @@
 [
 	{
-		"game": {
+		"screen": {
 			"width": 900,
 			"height": 800
 		},
 		"game_settng": {
-			"pacgum": {
+			"pacgum_and_score": {
 				"number": 42,
 				"points_per_pacgum": 50,
 				"points_per_ghost": 200
@@ -16,7 +16,7 @@
 			},
 			"seed": 42
 		},
-		"level": [
+		"levels": [
 			[]
 		]
 	}
