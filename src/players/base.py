@@ -22,7 +22,7 @@ class BasePlayer(ABC):
     @property
     def x(self) -> int:
         return self._x
-    
+
     @x.setter
     def x(self) -> int:
         return self._x
