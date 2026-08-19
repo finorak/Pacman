@@ -7,7 +7,6 @@ VENV = .venv
 
 install:
 	$(UV) sync
-	$(UV) pip install ./wheel/mlx-2.4-py3-none-any.whl
 
 run:
 	$(UV) run $(NAME)
@@ -29,9 +28,9 @@ fclean: clean
 
 lint:
 	$(UV) run flake8 . --exclude=$(VENV)
-	$(UV) run mypy mypy . --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs --exclude=$(VENV)
+	$(UV) run mypy . --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs --exclude=$(VENV)
 
-lint:
+lint-strict:
 	$(UV) run flake8 . --exclude=$(VENV)
 	$(UV) run mypy --strict . --exclude=$(VENV)
 
