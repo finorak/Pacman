@@ -1,4 +1,3 @@
-from ..rendering.component.maze import Maze
 from ..settings import NORTH, SOUTH, EAST, WEST
 from collections import deque
 
@@ -11,10 +10,9 @@ class Algorithm:
         self.start_pos = start_pos
         self.end_pos = end_pos
 
-    def bfs(self, maze_gen: Maze) -> list[tuple[int, int]]:
+    def bfs(self, maze: list[list[int]]) -> list[tuple[int, int]]:
         # This variable isn't in it yet
         # wating for it to be finished.
-        maze: list[list[int]] = maze_gen.maze  # type: ignore[attr-defined]
         stack: deque = deque([self.start_pos])
         came_from: dict[tuple[int, int], tuple[int, int]] = {}
         seen: set[tuple[int, int]] = set()

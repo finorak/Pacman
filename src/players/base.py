@@ -16,7 +16,8 @@ class BasePlayer(ABC):
     @abstractmethod
     def move(
             self, dt: float,
-            player_current_pos: Optional[tuple[int, int]] = None
+            maze: list[list[int]],
+            player_current_pos_or_keycode: Optional[tuple[int, int] | int] = None
     ) -> None: ...
 
     @property

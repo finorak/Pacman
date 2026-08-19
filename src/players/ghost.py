@@ -5,7 +5,6 @@ import random
 from typing import Any, Optional
 
 from ..algorithm.algorithm import Algorithm
-from ..rendering.component.maze import Maze
 from .base import BasePlayer
 
 
@@ -18,18 +17,18 @@ class Ghost(BasePlayer):
 
     def move(
             self, dt: float,
-            player_current_pos: Optional[tuple[int, int]] = None,
-            maze_gen: Optional[Maze] = None
+            maze: list[list[int]],
+            player_current_pos_or_keycode: Optional[tuple[int, int] | int] = None,
     ) -> None:
         # using this, we'll move the ghost in a maner
         # that is random.
         # moving in random direction
-        if player_current_pos is not None and \
-                self._player_is_in_range(player_current_pos):
-            self._find_path(
-                    player_current_pos=player_current_pos,
+        if isinstance(player_current_pos_or_keycode, tuple):
+            if self._player_is_in_range(player_current_pos_or_keycode):
+                self._find_path(
+                    player_current_pos=player_current_pos_or_keycode,
                     dt=dt,
-                    maze_gen=maze_gen
+                    maze=maze
                 )
             return
         direction_value: int = random.randint(0, 4) % 4
@@ -58,12 +57,10 @@ class Ghost(BasePlayer):
 
     def _find_path(
             self, player_current_pos: tuple[int, int],
-            dt: float, maze_gen: Optional[Maze] = None
+            dt: float, maze: list[list[int]]
     ) -> None:
-        if maze_gen is None:
-            return
         algorithm = Algorithm((self.x, self.y), player_current_pos)
-        paths: list[tuple[int, int]] = algorithm.bfs(maze_gen)
+        paths: list[tuple[int, int]] = algorithm.bfs(maze)
         self._move_ghost(paths, dt)
 
     def _move_ghost(self, paths: list[tuple[int, int]], dt: float) -> None:

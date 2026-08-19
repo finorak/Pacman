@@ -19,6 +19,11 @@ clean:
 	find . -name "*.pyc" -exec rm -rf {} +
 	find . -type d \( -name "__pycache__" -o -name ".mypy_cache" \) -exec rm -rf {} +
 
+# this reciep is only used for testing
+# launch it with the command `make -B test`
+test:
+	$(UV) run $(PYTHON) -m test.main
+
 fclean: clean
 	rm -rf $(VENV)
 
@@ -32,4 +37,4 @@ lint:
 
 re: fclean install
 
-.PHONY: install run fclean re clean debug
+.PHONY: install run fclean re clean debug test
