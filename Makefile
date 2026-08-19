@@ -21,7 +21,7 @@ clean:
 # this reciep is only used for testing
 # launch it with the command `make -B test`
 test:
-	$(UV) run $(PYTHON) -m test.main
+	$(UV) run $(PYTHON) -m test.main config.json
 
 fclean: clean
 	rm -rf $(VENV)
