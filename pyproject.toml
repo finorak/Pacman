@@ -5,8 +5,12 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "flake8>=7.3.0",
+    "mazegenerator",
     "mlx",
+    "mypy>=2.3.1",
 ]
 
 [tool.uv.sources]
-mlx = { path = "dist/mlx-2.4-py3-none-any.whl" }
+mazegenerator = { path = "wheel/mazegenerator-2.1.0-py3-none-any.whl" }
+mlx = { path = "wheel/mlx-2.4-py3-none-any.whl" }
