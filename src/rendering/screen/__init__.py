@@ -14,6 +14,6 @@ from .base import Screen
 from .game import Game
 from .highscore import HighScore
 from .instructions import Instructions
-from .main import Main
+from .main import MainMenue
 
-__all__ = ["Game", "HighScore", "Instructions", "Main", "Screen"]
+__all__ = ["Game", "HighScore", "Instructions", "MainMenue", "Screen"]

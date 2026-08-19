@@ -17,7 +17,7 @@ from ..core import XMain
 from .base import Screen
 
 
-class Main(Screen):
+class MainMenue(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
         self.assets.update(

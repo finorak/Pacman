@@ -14,7 +14,7 @@ import time
 from typing import Any
 
 from .core import XMain
-from .screen import Game, HighScore, Instructions, Main, Screen
+from .screen import Game, HighScore, Instructions, MainMenue, Screen
 
 
 class Rendering:
@@ -29,7 +29,7 @@ class Rendering:
         """
         self.xmain = XMain(win_size, "Pac-Man")
         self.states: dict[str, Screen] = {
-            "main": Main(self.xmain),
+            "main": MainMenue(self.xmain),
             "highscore": HighScore(self.xmain),
             "instructions": Instructions(self.xmain),
             "game": Game(self.xmain)
