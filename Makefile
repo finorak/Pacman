@@ -23,7 +23,7 @@ fclean: clean
 
 lint:
 	$(UV) run flake8 . --exclude=$(VENV)
-	$(UV) run mypy mypy . --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs --exclude=$(VENV)
+	$(UV) run mypy . --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs --exclude=$(VENV)
 
 lint-strict:
 	$(UV) run flake8 . --exclude=$(VENV)
