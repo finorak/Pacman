@@ -6,7 +6,7 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:49:01 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 13:39:23 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/20 09:10:18 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
@@ -23,8 +23,8 @@ class MainMenue(Screen):
         self.assets.update(
             self.load_assets(
                 {
-                    "back": "assets/Back.png",
-                    "logo": "assets/Logo.png",
+                    "back": "assets/logo/Back.png",
+                    "logo": "assets/logo/Logo.png",
                     "start": "assets/button/start.png",
                     "instructions": "assets/button/instruction.png",
                     "highscore": "assets/button/highscore.png",

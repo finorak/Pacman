@@ -6,7 +6,7 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:48:54 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 13:38:20 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/20 09:10:01 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
@@ -23,8 +23,8 @@ class Instructions(Screen):
         self.assets.update(
             self.load_assets(
                 {
-                    "back": "assets/Back2.png",
-                    "logo": "assets/Instructions.png",
+                    "back": "assets/logo/Back2.png",
+                    "logo": "assets/logo/Instructions.png",
                     "backtomain": "assets/button/backtomain.png",
                 }
             )

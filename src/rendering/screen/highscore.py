@@ -6,7 +6,7 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:48:50 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 13:38:06 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/20 09:10:04 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
@@ -23,8 +23,8 @@ class HighScore(Screen):
         self.assets.update(
             self.load_assets(
                 {
-                    "back": "assets/Back2.png",
-                    "logo": "assets/HighScore.png",
+                    "back": "assets/logo/Back2.png",
+                    "logo": "assets/logo/HighScore.png",
                     "backtomain": "assets/button/backtomain.png",
                 }
             )
