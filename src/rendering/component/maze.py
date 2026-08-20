@@ -12,6 +12,7 @@
 
 from mazegenerator import MazeGenerator
 
+from ...algorithm.path_finding import Algorithm
 from ..core import XMain
 
 
@@ -20,6 +21,11 @@ class Maze:
         self, xmain: XMain, size: tuple[int, int], seed: int = 42
     ) -> None:
         self.maze_gen = MazeGenerator(size, seed=seed)
+        # test start
+        algo = Algorithm(start_pos=(0, 0), end_pos=(size[0] - 1, size[1] - 1))
+        paths = algo.bfs(self.maze_gen.maze)
+        print(*paths)
+        # test end
         self.size = 30
         self.xmain = xmain
         self.maze = self.maze_gen.maze

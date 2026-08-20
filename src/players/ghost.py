@@ -4,7 +4,7 @@ import math
 import random
 from typing import Any, Optional
 
-from ..algorithm.algorithm import Algorithm
+from ..algorithm.path_finding import Algorithm
 from .base import BasePlayer
 
 
@@ -16,20 +16,20 @@ class Ghost(BasePlayer):
         self.current_pos = (x, y)
 
     def move(
-            self, dt: float,
-            maze: list[list[int]],
+            self, dt: float, maze: list[list[int]],
             player_current_pos_or_keycode: Optional[tuple[int, int] | int] = None,
     ) -> None:
         # using this, we'll move the ghost in a maner
         # that is random.
         # moving in random direction
-        if isinstance(player_current_pos_or_keycode, tuple):
-            if self._player_is_in_range(player_current_pos_or_keycode):
-                self._find_path(
-                    player_current_pos=player_current_pos_or_keycode,
-                    dt=dt,
-                    maze=maze
-                )
+        if not isinstance(player_current_pos_or_keycode, tuple):
+            return
+        if self._player_is_in_range(player_current_pos_or_keycode):
+            self._find_path(
+                player_current_pos=player_current_pos_or_keycode,
+                dt=dt,
+                maze=maze
+            )
             return
         direction_value: int = random.randint(0, 4) % 4
         if direction_value == 0:  # LEFT

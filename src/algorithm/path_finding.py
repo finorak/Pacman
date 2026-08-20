@@ -1,5 +1,6 @@
-from ..settings import NORTH, SOUTH, EAST, WEST
 from collections import deque
+
+from ..settings import EAST, NORTH, SOUTH, WEST
 
 
 class Algorithm:
@@ -18,13 +19,19 @@ class Algorithm:
         seen: set[tuple[int, int]] = set()
         while stack:
             current = stack.popleft()
+            if current in seen:
+                continue
             if current == self.end_pos:
                 return self._reconstruct_path(came_from)
             seen.add(current)
-            neighboors = self._find_neighboor(current, maze, seen)
+            neighboors = self._find_neighboor(current, maze)
+            filtered_neighboors = []
             for cell in neighboors:
+                if cell in seen:
+                    continue
+                filtered_neighboors.append(cell)
                 came_from[cell] = current
-            stack.extend(neighboors)
+            stack.extend(filtered_neighboors)
         return []
 
     def _reconstruct_path(
@@ -33,7 +40,7 @@ class Algorithm:
     ) -> list[tuple[int, int]]:
         paths: list[tuple[int, int]] = []
         current = came_from[self.end_pos]
-        while True:
+        while current is not None:
             if current == self.start_pos:
                 break
             paths.append(current)
@@ -42,18 +49,18 @@ class Algorithm:
 
     def _find_neighboor(
             self, current: tuple[int, int],
-            maze: list[list[int]], seen: set[tuple[int, int]]
+            maze: list[list[int]]
     ) -> list[tuple[int, int]]:
         rows: int = len(maze)
         cols: int = len(maze[0])
         x, y = current
         neighboors: list[tuple[int, int]] = []
-        if x - 1 >= 0 and (x - 1, y) not in seen and maze[x - 1][y] & NORTH:
+        if x - 1 >= 0 and maze[x - 1][y] & NORTH == 0:
             neighboors.append((x - 1, y))
-        if x + 1 < rows and (x + 1, y) not in seen and maze[x + 1][y] & SOUTH:
+        if x + 1 < rows and maze[x + 1][y] & SOUTH == 0:
             neighboors.append((x + 1, y))
-        if y - 1 >= 0 and (x, y - 1) not in seen and maze[x][y - 1] & EAST:
+        if y - 1 >= 0 and maze[x][y - 1] & EAST == 0:
             neighboors.append((x, y - 1))
-        if y + 1 < cols and (x, y + 1) not in seen and maze[x][y + 1] & WEST:
+        if y + 1 < cols and maze[x][y + 1] & WEST == 0:
             neighboors.append((x, y + 1))
         return neighboors
