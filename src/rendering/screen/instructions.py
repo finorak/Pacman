@@ -6,7 +6,7 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:48:54 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/20 09:10:01 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/20 15:42:56 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
@@ -28,19 +28,6 @@ class Instructions(Screen):
                     "backtomain": "assets/button/backtomain.png",
                 }
             )
-        )
-        self.set_position(
-            {
-                "back": (0, random.randint(-400, 0)),
-                "logo": (
-                    self.get_center(self.assets["logo"].width),
-                    50,
-                ),
-                "backtomain": (
-                    self.get_center(self.assets["backtomain"].width),
-                    550,
-                ),
-            }
         )
 
     def get_input(self, key: int, _) -> str | None:
@@ -65,13 +52,13 @@ class Instructions(Screen):
             self.xmain.mlx.mlx_put_image_to_window(
                 self.xmain.mlx_ptr,
                 self.xmain.mlx_window,
-                image.img,
+                image.sprite.img,
                 int(image.pos_x),
                 int(image.pos_y),
             )
 
     def _render_background(self) -> None:
-        image_width = self.assets["back"].width
+        image_width = self.assets["back"].sprite.width
 
         x = self.assets["back"].pos_x
 
@@ -79,7 +66,7 @@ class Instructions(Screen):
             _ = self.xmain.mlx.mlx_put_image_to_window(
                 self.xmain.mlx_ptr,
                 self.xmain.mlx_window,
-                self.assets["back"].img,
+                self.assets["back"].sprite.img,
                 int(x),
                 int(self.assets["back"].pos_y),
             )

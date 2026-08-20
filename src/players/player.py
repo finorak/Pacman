@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 from .base import BasePlayer
 
@@ -14,7 +14,7 @@ class Player(BasePlayer):
 
     def move(
             self, dt: float, maze: list[list[int]],
-            player_current_pos_or_keycode: Optional[tuple[int, int] | int] = None
+            player_current_pos_or_keycode: (tuple[int, int] | int) | None = None
     ) -> None:
         if isinstance(player_current_pos_or_keycode, tuple):
             return

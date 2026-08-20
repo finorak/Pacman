@@ -6,7 +6,7 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:49:09 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 13:25:06 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/20 13:53:34 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
@@ -27,18 +27,18 @@ class Rendering:
         Args:
             win_size (tuple[int, int]): The size of the window.
         """
-        self.xmain = XMain(win_size, "Pac-Man")
+        self.xmain: XMain = XMain(win_size, "Pac-Man")
         self.states: dict[str, Screen] = {
             "main": MainMenue(self.xmain),
             "highscore": HighScore(self.xmain),
             "instructions": Instructions(self.xmain),
             "game": Game(self.xmain)
         }
-        self.current_screen = self.states["main"]
+        self.current_screen: Screen = self.states["main"]
 
-        self.previous_time = time.perf_counter()
+        self.previous_time: float = time.perf_counter()
 
-    def main_loop(self, _param: Any) -> None:
+    def main_loop(self, _: object) -> None:
         """
         Main loop for the rendering.
 
@@ -85,7 +85,7 @@ class Rendering:
         """Update the logic in the program."""
         self.current_screen.update(dt)
 
-    def _exit(self, _) -> None:
+    def _exit(self, _: object) -> None:
         for screen in self.states.values():
             screen.exit()
         self.xmain.mlx.mlx_release(self.xmain.mlx_ptr)

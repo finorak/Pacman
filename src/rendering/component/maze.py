@@ -6,13 +6,13 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:25:15 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 16:49:42 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/20 15:57:12 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
 from mazegenerator import MazeGenerator
 
-from ..core import XMain
+from ..core import Image, XMain
 
 
 class Maze:
@@ -20,11 +20,15 @@ class Maze:
         self, xmain: XMain, size: tuple[int, int], seed: int = 42
     ) -> None:
         self.maze_gen = MazeGenerator(size, seed=seed)
-        self.size = 30
+        self.image_gen = Image(xmain)
+        self.size = 38
         self.xmain = xmain
         self.maze = self.maze_gen.maze
-        self.image = self.xmain.generate_image(
-            (len(self.maze[0]) * self.size + 10, len(self.maze) * self.size + 10)
+        self.image = self.image_gen.generate_image(
+            (
+                len(self.maze[0]) * self.size + 10,
+                len(self.maze) * self.size + 10,
+            )
         )
 
     def generate_maze_image(self) -> None:
@@ -40,27 +44,31 @@ class Maze:
                 i += 1
                 continue
             if i == 0:
-                self.xmain.draw_line(
+                self.image_gen.draw_line(
                     self.image,
                     real_pos,
                     (real_pos[0] + self.size, real_pos[1]),
+                    5,
                 )
             elif i == 1:
-                self.xmain.draw_line(
+                self.image_gen.draw_line(
                     self.image,
                     (real_pos[0] + self.size, real_pos[1]),
                     (real_pos[0] + self.size, real_pos[1] + self.size),
+                    5,
                 )
             elif i == 2:
-                self.xmain.draw_line(
+                self.image_gen.draw_line(
                     self.image,
                     (real_pos[0], real_pos[1] + self.size),
                     (real_pos[0] + self.size, real_pos[1] + self.size),
+                    5,
                 )
             else:
-                self.xmain.draw_line(
+                self.image_gen.draw_line(
                     self.image,
                     (real_pos[0], real_pos[1]),
-                (real_pos[0], real_pos[1] + self.size),
+                    (real_pos[0], real_pos[1] + self.size),
+                    5,
                 )
             i += 1
