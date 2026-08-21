@@ -12,6 +12,9 @@
 
 
 
+from src.rendering.component import maze
+from ...players.ghost import Ghost
+from ...players.player import Player
 from ..component import AnimatedSprite, Maze
 from ..core import XMain
 from .base import Screen
@@ -23,32 +26,25 @@ class Game(Screen):
         self.maze: Maze = Maze(xmain, (16, 16))
         self.maze.generate_maze_image()
         self.atlas = self.load_asset("assets/Pac-man.png")
-        self.frames = self.load_game()
-        self.move = 0
+        player_frames = self.load_game()
+        self.player: Player = Player(player_frames)
+        self.ghosts: list[Ghost] = []
+        self.player_direction = 97 # A
 
     def get_input(self, key: int, _) -> str | None:
         if key == 119: # W
-            self.move = 1
+            self.player_direction = 119
         elif key == 97: # A
-            self.move = 2
+            self.player_direction = 97
         elif key == 115: # S
-            self.move = 3
+            self.player_direction = 115
         elif key == 100: # D
-            self.move = 4
+            self.player_direction = 100
 
     def update(self, dt: float) -> None:
-        if self.move == 1:
-            self.frames["pacman_left"].pos_y -= 2
-        elif self.move == 2:
-            self.frames["pacman_left"].pos_x -= 2
-        elif self.move == 3:
-            self.frames["pacman_left"].pos_y += 2
-        elif self.move == 4:
-            self.frames["pacman_left"].pos_x += 2
-        self.frames["pacman_left"].animate(dt)
-        self.frames["pacman_right"].animate(dt)
-        self.frames["pacman_up"].animate(dt)
-        self.frames["pacman_down"].animate(dt)
+        self.player.update(dt, self.maze.maze, self.player_direction)
+        for ghost in self.ghosts:
+            ghost.update(dt=dt, maze=self.maze.maze)
 
     def render(self) -> None:
         _ = self.xmain.mlx.mlx_clear_window(
@@ -61,12 +57,14 @@ class Game(Screen):
             self.get_center(self.maze.image.width),
             self.get_center(self.maze.image.height, width=False),
         )
+        state = self.player.player_state[self.player_direction]
+        player_current_frame = self.player.images[state['direction']]
         _ = self.xmain.mlx.mlx_put_image_to_window(
             self.xmain.mlx_ptr,
             self.xmain.mlx_window,
-            self.frames["pacman_left"].sprite.img,
-            int(self.frames["pacman_left"].pos_x),
-            int(self.frames["pacman_left"].pos_y)
+            player_current_frame.sprite.img,
+            int(player_current_frame.pos_x),
+            int(player_current_frame.pos_y)
         )
 
     def load_game(self) -> dict[str, AnimatedSprite]:
@@ -80,7 +78,7 @@ class Game(Screen):
             )
             for i in range(3)
         ]
-        result["pacman_right"] = AnimatedSprite(pacman, (100, 100))
+        result["pacman_right"] = AnimatedSprite(pacman)
         pacman = [
             self.image_loader.copy_sprite(
                 self.atlas.sprite,
@@ -90,7 +88,7 @@ class Game(Screen):
             )
             for i in range(3)
         ]
-        result["pacman_left"] = AnimatedSprite(pacman, (200, 100))
+        result["pacman_left"] = AnimatedSprite(pacman)
         pacman = [
             self.image_loader.copy_sprite(
                 self.atlas.sprite,
@@ -100,7 +98,7 @@ class Game(Screen):
             )
             for i in range(3)
         ]
-        result["pacman_up"] = AnimatedSprite(pacman, (100, 200))
+        result["pacman_up"] = AnimatedSprite(pacman)
         pacman = [
             self.image_loader.copy_sprite(
                 self.atlas.sprite,
@@ -110,5 +108,5 @@ class Game(Screen):
             )
             for i in range(3)
         ]
-        result["pacman_down"] = AnimatedSprite(pacman, (200, 200))
+        result["pacman_down"] = AnimatedSprite(pacman)
         return result

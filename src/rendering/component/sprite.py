@@ -8,7 +8,7 @@ class Sprite:
 
 
 class AnimatedSprite(Sprite):
-    def __init__(self, sprites: list[ImgData], pos: tuple[float, float]) -> None:
+    def __init__(self, sprites: list[ImgData], pos: tuple[float, float] = (618, 618)) -> None:
         self.sprites, self.sprite_index, self.animation_speed = sprites, 0, 15
         super().__init__(sprites[0], pos)
 

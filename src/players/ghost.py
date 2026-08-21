@@ -9,8 +9,8 @@ from .base import BasePlayer
 
 
 class Ghost(BasePlayer):
-    def __init__(self, img: Any, x: int = 0, y: int = 0) -> None:
-        super().__init__(img, x, y)
+    def __init__(self, frames: Any, x: int = 0, y: int = 0) -> None:
+        super().__init__(frames, x, y)
         self.radius: int = 20
         self.find_player: bool = False
         self.current_pos = (x, y)
@@ -30,7 +30,7 @@ class Ghost(BasePlayer):
                     dt=dt,
                     maze=maze
                 )
-            return
+                return
         direction_value: int = random.randint(0, 4) % 4
         if direction_value == 0:  # LEFT
             self.x -= 1
@@ -40,6 +40,13 @@ class Ghost(BasePlayer):
             self.x += 1
         else:  # DOWN
             self.y += 1
+
+    def update(
+            self, dt: float,
+            maze: list[list[int]],
+            player_direction: Any = None
+    ) -> None:
+        ...
 
     def _player_is_in_range(self, player_pos: tuple[int, int]) -> bool:
         # verify if player is in the visual of the ghost
