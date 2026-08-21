@@ -6,12 +6,10 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:48:50 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 13:38:06 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/20 15:44:28 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
-import math
-import random
 
 from ..core import XMain
 from .base import Screen
@@ -23,24 +21,11 @@ class HighScore(Screen):
         self.assets.update(
             self.load_assets(
                 {
-                    "back": "assets/Back2.png",
-                    "logo": "assets/HighScore.png",
+                    "back": "assets/logo/Back2.png",
+                    "logo": "assets/logo/HighScore.png",
                     "backtomain": "assets/button/backtomain.png",
                 }
             )
-        )
-        self.set_position(
-            {
-                "back": (0, random.randint(-400, 0)),
-                "logo": (
-                    self.get_center(self.assets["logo"].width),
-                    50,
-                ),
-                "backtomain": (
-                    self.get_center(self.assets["backtomain"].width),
-                    550,
-                ),
-            }
         )
 
     def get_input(self, key: int, _) -> str | None:
@@ -50,11 +35,9 @@ class HighScore(Screen):
 
     def update(self, dt: float) -> None:
         self.time += dt
-        self.assets["logo"].pos_y = 50 + math.sin(self.time) * 15
-        self.assets["back"].pos_x -= dt * 30
 
     def render(self) -> None:
-        self.xmain.mlx.mlx_clear_window(
+        _ = self.xmain.mlx.mlx_clear_window(
             self.xmain.mlx_ptr,
             self.xmain.mlx_window,
         )
@@ -62,25 +45,24 @@ class HighScore(Screen):
         for name, image in self.assets.items():
             if name == "back":
                 continue
-            self.xmain.mlx.mlx_put_image_to_window(
+            _ = self.xmain.mlx.mlx_put_image_to_window(
                 self.xmain.mlx_ptr,
                 self.xmain.mlx_window,
-                image.img,
-                int(image.pos_x),
-                int(image.pos_y),
+                image.sprite.img,
+                0,0
             )
 
     def _render_background(self) -> None:
-        image_width = self.assets["back"].width
+        image_width = self.assets["back"].sprite.img
 
-        x = self.assets["back"].pos_x
+        x = 0
 
         while x < self.xmain.screen_w:
-            self.xmain.mlx.mlx_put_image_to_window(
+            _ = self.xmain.mlx.mlx_put_image_to_window(
                 self.xmain.mlx_ptr,
                 self.xmain.mlx_window,
-                self.assets["back"].img,
+                self.assets["back"].sprite.img,
                 int(x),
-                int(self.assets["back"].pos_y),
+                0
             )
             x += image_width
