@@ -6,7 +6,7 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:48:47 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/21 14:40:59 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/21 18:47:18 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
@@ -21,12 +21,15 @@ from .base import Screen
 class GameScreen(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
+
         self.maze: Maze = Maze(xmain, (16, 16))
         self.maze.generate_maze_image()
+
         self.atlas = self.load_asset("assets/Pac-man.png")
-        player_frames = self.load_game()
-        self.player: Player = Player(player_frames)
-        self.ghosts: list[Ghost] = []
+
+        self.player: Player = Player(self.load_game())
+
+        self.ghosts: list[Ghost] = [Ghost(self.load_ghost_sprite())]
         self.player_direction = 97  # A
 
     def get_input(self, key: int, _) -> str | None:
@@ -64,6 +67,13 @@ class GameScreen(Screen):
             int(player_current_frame.pos_x),
             int(player_current_frame.pos_y),
         )
+        _ = self.xmain.mlx.mlx_put_image_to_window(
+            self.xmain.mlx_ptr,
+            self.xmain.mlx_window,
+            self.ghosts[0].frames["ghost_down"].sprites[0].img,
+            400, 400
+        )
+
 
     def load_game(self) -> dict[str, AnimatedSprite]:
         result: dict[str, AnimatedSprite] = {}
@@ -107,4 +117,21 @@ class GameScreen(Screen):
             for i in range(3)
         ]
         result["pacman_down"] = AnimatedSprite(pacman)
+        return result
+
+    def load_ghost_sprite(self) -> dict[str, AnimatedSprite]:
+        result: dict[str, AnimatedSprite] = {}
+        pacman = [
+            self.image_loader.copy_sprite(
+                self.atlas.sprite,
+                self.image_loader.generate_image((32, 32)),
+                (32, 32),
+                (i * 32, 128),
+            )
+            for i in range(8)
+        ]
+        result["ghost_right"] = AnimatedSprite(pacman[:2])
+        result["ghost_left"] = AnimatedSprite(pacman[2:4])
+        result["ghost_up"] = AnimatedSprite(pacman[4:6])
+        result["ghost_down"] = AnimatedSprite(pacman[6:])
         return result
