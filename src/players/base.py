@@ -46,8 +46,18 @@ class BasePlayer(ABC):
     def y(self, value: int) -> None:
         self._y = value
 
-    def _normalize_value(self, value: int, a: int, b: int, min_value: int, max_value: int) -> int:
-        return a + (((value - min_value) * (b - a)) // (max_value - min_value))
+    def can_go(
+            self, maze: list[list[int]],
+            new_pos: tuple[int, int],
+            old_pos: tuple[int, int]
+    ) -> bool:
+        # verifying if the cell we want to go
+        # is a neighboor of the current cell.
+        new_x, new_y = new_pos
+        old_x, old_y = old_pos
+        old_cell = maze[old_x][old_y]
+        new_cell = maze[new_x][new_y]
+        return not old_cell & new_cell
 
     def cell_is_valid(
             self,
@@ -57,8 +67,9 @@ class BasePlayer(ABC):
         rows: int = len(maze)
         cols: int = len(maze[0])
         dx, dy = state['x'], state['y']
-        new_x, new_y = self.x + dx, self.y + dy
         return True
-        if rows <= new_x < 0 > new_y >= cols:
+        if rows <= self.x + dx > 0 or cols <= self.y > 0:
             return False
-        return False
+        if not self.can_go(maze, (self.x + dx, self.y + dy), (self.x, self.y)):
+            return False
+        return True

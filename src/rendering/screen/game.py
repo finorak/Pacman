@@ -25,7 +25,11 @@ class GameScreen(Screen):
         self.maze.generate_maze_image()
         self.atlas = self.load_asset("assets/Pac-man.png")
         player_frames = self.load_game()
-        self.player: Player = Player(player_frames)
+        self.player: Player = Player(
+                player_frames, self.maze.maze,
+                self.get_center(self.maze.image.width),
+                self.get_center(self.maze.image.height, width=False),
+            )
         self.ghosts: list[Ghost] = []
         self.player_direction = 97  # A
 

@@ -14,7 +14,13 @@ import time
 from typing import Any
 
 from .core import XMain
-from .screen import GameScreen, HighScoreScreen, InstructionsScreen, MainMenuScreen, Screen
+from .screen import (
+    GameScreen,
+    HighScoreScreen,
+    InstructionsScreen,
+    MainMenuScreen,
+    Screen,
+)
 
 
 class Rendering:

@@ -6,12 +6,15 @@ from .base import BasePlayer
 class Player(BasePlayer):
 
     def __init__(
-            self, frames: Any, x: int = 0,
+            self, frames: Any,
+            maze: list[list[int]],
+            x: int = 0,
             y: int = 0, life: int = 3,
     ) -> None:
         super().__init__(frames, x, y)
         self._life = life
         # move this to setting later on.
+        self.maze = maze
         self.player_state: dict[int, dict[str, Any]] = {
                 119: {
                     "dx_pos": 0,
@@ -59,14 +62,15 @@ class Player(BasePlayer):
         if player_direction is None:
             return
         state = self.player_state[player_direction]
-        if not self.cell_is_valid(state, maze):
-            return
         player_current_frame = self.images[state['direction']]
         dx_pos = state['dx_pos']
         dy_pos = state['dy_pos']
+        if not self.cell_is_valid(state, maze):
+            return
         player_current_frame.pos_x += dx_pos
         player_current_frame.pos_y += dy_pos
         # update player position
+        relative_x = ...
         self.x = player_current_frame.pos_x // 618
         self.y = player_current_frame.pos_y // 618
         self.update_other_sprites_pos(player_direction)
