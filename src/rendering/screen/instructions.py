@@ -6,18 +6,17 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:48:54 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/20 15:42:56 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/21 14:41:00 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
 import math
-import random
 
 from ..core import XMain
 from .base import Screen
 
 
-class Instructions(Screen):
+class InstructionsScreen(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
         self.assets.update(
