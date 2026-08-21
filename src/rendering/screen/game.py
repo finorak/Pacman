@@ -6,13 +6,11 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:48:47 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/20 15:55:40 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/21 14:40:59 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
 
-
-from src.rendering.component import maze
 from ...players.ghost import Ghost
 from ...players.player import Player
 from ..component import AnimatedSprite, Maze
@@ -20,7 +18,7 @@ from ..core import XMain
 from .base import Screen
 
 
-class Game(Screen):
+class GameScreen(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
         self.maze: Maze = Maze(xmain, (16, 16))
@@ -29,16 +27,16 @@ class Game(Screen):
         player_frames = self.load_game()
         self.player: Player = Player(player_frames)
         self.ghosts: list[Ghost] = []
-        self.player_direction = 97 # A
+        self.player_direction = 97  # A
 
     def get_input(self, key: int, _) -> str | None:
-        if key == 119: # W
+        if key == 119:  # W
             self.player_direction = 119
-        elif key == 97: # A
+        elif key == 97:  # A
             self.player_direction = 97
-        elif key == 115: # S
+        elif key == 115:  # S
             self.player_direction = 115
-        elif key == 100: # D
+        elif key == 100:  # D
             self.player_direction = 100
 
     def update(self, dt: float) -> None:
@@ -58,13 +56,13 @@ class Game(Screen):
             self.get_center(self.maze.image.height, width=False),
         )
         state = self.player.player_state[self.player_direction]
-        player_current_frame = self.player.images[state['direction']]
+        player_current_frame = self.player.images[state["direction"]]
         _ = self.xmain.mlx.mlx_put_image_to_window(
             self.xmain.mlx_ptr,
             self.xmain.mlx_window,
             player_current_frame.sprite.img,
             int(player_current_frame.pos_x),
-            int(player_current_frame.pos_y)
+            int(player_current_frame.pos_y),
         )
 
     def load_game(self) -> dict[str, AnimatedSprite]:

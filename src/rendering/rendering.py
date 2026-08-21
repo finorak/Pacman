@@ -6,7 +6,7 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:49:09 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/20 13:53:34 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/21 14:40:59 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
@@ -14,7 +14,7 @@ import time
 from typing import Any
 
 from .core import XMain
-from .screen import Game, HighScore, Instructions, MainMenue, Screen
+from .screen import GameScreen, HighScoreScreen, InstructionsScreen, MainMenuScreen, Screen
 
 
 class Rendering:
@@ -29,10 +29,10 @@ class Rendering:
         """
         self.xmain: XMain = XMain(win_size, "Pac-Man")
         self.states: dict[str, Screen] = {
-            "main": MainMenue(self.xmain),
-            "highscore": HighScore(self.xmain),
-            "instructions": Instructions(self.xmain),
-            "game": Game(self.xmain)
+            "main": MainMenuScreen(self.xmain),
+            "highscore": HighScoreScreen(self.xmain),
+            "instructions": InstructionsScreen(self.xmain),
+            "game": GameScreen(self.xmain)
         }
         self.current_screen: Screen = self.states["main"]
 

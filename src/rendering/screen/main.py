@@ -6,7 +6,7 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:49:01 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/20 15:49:55 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/21 14:41:00 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
@@ -16,7 +16,7 @@ from ..core import XMain
 from .base import Screen
 
 
-class MainMenue(Screen):
+class MainMenuScreen(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
         self.assets.update(

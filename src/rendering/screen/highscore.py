@@ -6,7 +6,7 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 10:48:50 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/20 15:44:28 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/21 14:57:36 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
@@ -15,7 +15,7 @@ from ..core import XMain
 from .base import Screen
 
 
-class HighScore(Screen):
+class HighScoreScreen(Screen):
     def __init__(self, xmain: XMain) -> None:
         super().__init__(xmain)
         self.assets.update(
