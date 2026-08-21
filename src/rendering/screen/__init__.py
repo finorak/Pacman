@@ -6,14 +6,14 @@
 #    By: nyramana <nyramana@student.42antananariv  +#+  +:+       +#+         #
 #                                                +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/19 12:56:28 by nyramana         #+#    #+#              #
-#    Updated: 2026/08/19 12:56:42 by nyramana        ###   ########.fr        #
+#    Updated: 2026/08/21 14:41:00 by nyramana        ###   ########.fr        #
 #                                                                             #
 # *************************************************************************** #
 
 from .base import Screen
-from .game import Game
-from .highscore import HighScore
-from .instructions import Instructions
-from .main import MainMenue
+from .game import GameScreen
+from .highscore import HighScoreScreen
+from .instructions import InstructionsScreen
+from .main import MainMenuScreen
 
-__all__ = ["Game", "HighScore", "Instructions", "MainMenue", "Screen"]
+__all__ = ["GameScreen", "HighScoreScreen", "InstructionsScreen", "MainMenuScreen", "Screen"]
