@@ -12,7 +12,6 @@
 
 
 
-from src.rendering.component import maze
 from ...players.ghost import Ghost
 from ...players.player import Player
 from ..component import AnimatedSprite, Maze
@@ -31,7 +30,7 @@ class Game(Screen):
         self.ghosts: list[Ghost] = []
         self.player_direction = 97 # A
 
-    def get_input(self, key: int, _) -> str | None:
+    def get_input(self, key: int, _) -> None:
         if key == 119: # W
             self.player_direction = 119
         elif key == 97: # A

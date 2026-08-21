@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from os.path import samefile
 from typing import Any, Optional
 
 from ..rendering.component.sprite import AnimatedSprite
@@ -25,7 +24,11 @@ class BasePlayer(ABC):
     ) -> None: ...
 
     @abstractmethod
-    def update(self, dt: float, maze: list[list[int]], player_direction: Any | int = None) -> None: ...
+    def update(
+            self, dt: float,
+            maze: list[list[int]],
+            player_direction: Any | int = None
+    ) -> None: ...
 
     @property
     def x(self) -> int:
@@ -43,7 +46,10 @@ class BasePlayer(ABC):
     def y(self, value: int) -> None:
         self._y = value
 
-    def can_go(
+    def _normalize_value(self, value: int, a: int, b: int, min_value: int, max_value: int) -> int:
+        return a + (((value - min_value) * (b - a)) // (max_value - min_value))
+
+    def cell_is_valid(
             self,
             state: dict[str, Any],
             maze: list[list[int]]
@@ -52,6 +58,7 @@ class BasePlayer(ABC):
         cols: int = len(maze[0])
         dx, dy = state['x'], state['y']
         new_x, new_y = self.x + dx, self.y + dy
+        return True
         if rows <= new_x < 0 > new_y >= cols:
             return False
         return False

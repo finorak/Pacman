@@ -11,6 +11,7 @@ class Player(BasePlayer):
     ) -> None:
         super().__init__(frames, x, y)
         self._life = life
+        # move this to setting later on.
         self.player_state: dict[int, dict[str, Any]] = {
                 119: {
                     "dx_pos": 0,
@@ -50,11 +51,15 @@ class Player(BasePlayer):
             return
         # this tell us that `player_current_pos_or_keycode` is keycode
 
-    def update(self, dt: float, maze: list[list[int]], player_direction: Any = None) -> None:
+    def update(
+            self, dt: float,
+            maze: list[list[int]],
+            player_direction: Any = None
+    ) -> None:
         if player_direction is None:
             return
         state = self.player_state[player_direction]
-        if not self.can_go(state, maze):
+        if not self.cell_is_valid(state, maze):
             return
         player_current_frame = self.images[state['direction']]
         dx_pos = state['dx_pos']
@@ -62,8 +67,8 @@ class Player(BasePlayer):
         player_current_frame.pos_x += dx_pos
         player_current_frame.pos_y += dy_pos
         # update player position
-        self.x = player_current_frame.pos_x // 16
-        self.y = player_current_frame.pos_y // 16
+        self.x = player_current_frame.pos_x // 618
+        self.y = player_current_frame.pos_y // 618
         self.update_other_sprites_pos(player_direction)
         player_current_frame.animate(dt)
 
